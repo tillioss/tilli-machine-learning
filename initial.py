@@ -25,6 +25,8 @@ def visualize(df):
     """
     df['feedback'].replace(['unsatisfied', 'satisfied', 'neutral'], ['red', 'blue', 'green'], inplace=True)
     plt.scatter(df.emotion, df.activity, s=200, c=df.feedback, cmap='gray')
+    plt.tight_layout()
+    plt.savefig("data_1.png")
 
 
 df = pd.read_json('data/data_1.json').reset_index()
