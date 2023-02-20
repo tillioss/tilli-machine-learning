@@ -29,17 +29,18 @@ def visualize(df):
     plt.savefig("data_1.png")
 
 
-df = pd.read_json('data/data_1.json').reset_index()
+def data_etl():
+    df = pd.read_json('data/data_1.json').reset_index()
+    journey_df = pd.DataFrame(list(df['users']))[['journeys']].dropna()
+    training_df = pd.DataFrame()
 
-journey_df = pd.DataFrame(list(df['users']))[['journeys']].dropna()
+    for i in range (len(journey_df)):
+        if len(training_df) == 0:
+            training_df = pd.DataFrame(list(journey_df.iloc[1])[0].values())
+        else:
+            training_df = training_df.append(pd.DataFrame(list(journey_df.iloc[i])[0].values()))
+    return training_df
 
-training_df = pd.DataFrame()
-
-for i in range (len(journey_df)):
-    if len(training_df) == 0:
-        training_df = pd.DataFrame(list(journey_df.iloc[1])[0].values())
-    else:
-        training_df = training_df.append(pd.DataFrame(list(journey_df.iloc[i])[0].values()))
-
+training_df = data_etl()
 visualize(training_df)
 training_df = categorical_to_numeric_df(training_df)

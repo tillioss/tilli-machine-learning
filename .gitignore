@@ -1,6 +1,7 @@
 #IDE related
 .idea/
-
+.DS_Store
+*.png
 # Data source
 data/
 
