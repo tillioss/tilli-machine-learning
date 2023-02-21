@@ -41,6 +41,6 @@ def data_etl():
             training_df = training_df.append(pd.DataFrame(list(journey_df.iloc[i])[0].values()))
     return training_df
 
-training_df = data_etl()
-visualize(training_df)
-training_df = categorical_to_numeric_df(training_df)
+# training_df = data_etl()
+# visualize(training_df)
+# training_df = categorical_to_numeric_df(training_df)

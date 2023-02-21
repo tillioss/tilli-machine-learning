@@ -3,6 +3,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 from util import categorical_to_numeric_df, data_etl
 import numpy as np
+import joblib
 
 # Load the data
 processed_df = data_etl()
@@ -40,6 +41,7 @@ knn.fit(X, y)
 emotion = le_emo.transform(['sad'])
 feedback = le_fbk.transform(['satisfied'])
 
+joblib.dump(knn, 'tilli_model_v_1.joblib')
 
 prediction = knn.predict(np.array([[emotion, feedback]]).reshape(-1, 2))
 
@@ -48,3 +50,11 @@ activity_pred = le_act.inverse_transform(prediction)
 
 # Print the predicted activity
 print(f"The predicted activity is {activity_pred[0]}")
+
+# Save the LabelEncoders
+joblib.dump(le_act, 'le_act.joblib')
+joblib.dump(le_emo, 'le_emo.joblib')
+joblib.dump(le_fbk, 'le_fbk.joblib')
+
+# Save the KNN model
+joblib.dump(knn, 'knn_model.joblib')
