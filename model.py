@@ -1,38 +1,50 @@
 import pandas as pd
-from sklearn.neighbors import NearestNeighbors
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import LabelEncoder
 from util import categorical_to_numeric_df, data_etl
+import numpy as np
 
 # Load the data
 processed_df = data_etl()
-data = categorical_to_numeric_df(processed_df)
+data = processed_df[processed_df['emotion'] !=""]
+# data = categorical_to_numeric_df(processed_df)
 
 #TODO Need to add a more generalised missing value handling mechanism
 
-data = data[data['emotion'] !=""]
+# Load the dataset
+# data = pd.read_csv('your_dataset.csv')
 
-# data = pd.read_csv('data.csv')
+# Encode categorical variables
+le_act = LabelEncoder()
+data['activity'] = le_act.fit_transform(data['activity'])
 
-# Prepare the data for KNN
-X = data.drop(['feedback'], axis=1)  # 'feedback' is the target variable
-y = data['feedback']
+le_emo = LabelEncoder()
+data['emotion'] = le_emo.fit_transform(data['emotion'])
 
-# Instantiate the KNN model
-knn = NearestNeighbors(n_neighbors=5)
+le_fbk = LabelEncoder()
+data['feedback'] = le_fbk.fit_transform(data['feedback'])
 
-# Fit the model to the data
+# Separate features and target variable
+X = data[['emotion', 'feedback']]
+y = data['activity']
+
+X = X.values.reshape(-1, 2)
+# y = y.values.reshape(-1, 1)
+# Create KNN model with k=3
+knn = KNeighborsClassifier(n_neighbors=3)
+
+# Fit the model
 knn.fit(X, y)
 
-# Predict using the model
-positive_feedback = [1]
-new_emotion = [3,1]  # Replace with the emotion value to be predicted
-distances, indices = knn.kneighbors([new_emotion])
+# Predict an activity for given emotion and satisfied feedback
+emotion = le_emo.transform(['sad'])
+feedback = le_fbk.transform(['satisfied'])
 
-# Get the top recommendations and calculate their feedback
-top_indices = indices[0]
-top_activities = data.loc[top_indices, 'activity']
-top_feedbacks = data.loc[top_indices, 'feedback']
-positive_activities = top_activities[top_feedbacks == 1]
 
-# Print the recommended activities with positive feedback
-print("Recommended activities with positive feedback:")
-print(positive_activities)
+prediction = knn.predict(np.array([[emotion, feedback]]).reshape(-1, 2))
+
+# Decode the prediction
+activity_pred = le_act.inverse_transform(prediction)
+
+# Print the predicted activity
+print(f"The predicted activity is {activity_pred[0]}")
