@@ -8,12 +8,12 @@ app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
 
 # Load the LabelEncoders
-le_act = joblib.load('le_act.joblib')
-le_emo = joblib.load('le_emo.joblib')
-le_fbk = joblib.load('le_fbk.joblib')
+le_act = joblib.load('../model/le_act.joblib')
+le_emo = joblib.load('../model/le_emo.joblib')
+le_fbk = joblib.load('../model/le_fbk.joblib')
 
 # Load the KNN model
-knn = joblib.load('knn_model.joblib')
+knn = joblib.load('../model/knn_model.joblib')
 
 @app.route('/predict', methods=['POST'])
 def predict():

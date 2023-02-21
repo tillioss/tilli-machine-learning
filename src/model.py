@@ -41,8 +41,6 @@ knn.fit(X, y)
 emotion = le_emo.transform(['sad'])
 feedback = le_fbk.transform(['satisfied'])
 
-joblib.dump(knn, 'tilli_model_v_1.joblib')
-
 prediction = knn.predict(np.array([[emotion, feedback]]).reshape(-1, 2))
 
 # Decode the prediction
@@ -52,9 +50,9 @@ activity_pred = le_act.inverse_transform(prediction)
 print(f"The predicted activity is {activity_pred[0]}")
 
 # Save the LabelEncoders
-joblib.dump(le_act, 'le_act.joblib')
-joblib.dump(le_emo, 'le_emo.joblib')
-joblib.dump(le_fbk, 'le_fbk.joblib')
+joblib.dump(le_act, '../model/le_act.joblib')
+joblib.dump(le_emo, '../model/le_emo.joblib')
+joblib.dump(le_fbk, '../model/le_fbk.joblib')
 
 # Save the KNN model
-joblib.dump(knn, 'knn_model.joblib')
+joblib.dump(knn, '../model/knn_model.joblib')
