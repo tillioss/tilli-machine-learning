@@ -1,0 +1,16 @@
+
+pip3 install joblib
+pip3 install numpy
+pip3 install flask
+pip3 install sklearn
+pip3 install -U scikit-learn scipy matplotlib
+
+cd server
+python3 server.py
+
+cd client
+python3 client.py
+
+docker build -t mynapsys/zimodesolutions:tilli-machine-learning-3 .
+docker image ls
+docker push mynapsys/zimodesolutions:tilli-machine-learning-3

@@ -30,5 +30,11 @@ def predict():
     # Return the predicted activity as a JSON response
     return jsonify({'activity': activity_pred[0]})
 
+# Test api for outside access tested.
+@app.route('/predict/test', methods=['GET'])
+def predicthi():
+    return "Predict Till Test"
+
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
+    # app.run(host='127.0.0.1', port=5000)
