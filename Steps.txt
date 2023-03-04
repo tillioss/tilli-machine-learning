@@ -11,6 +11,3 @@ python3 server.py
 cd client
 python3 client.py
 
-docker build -t mynapsys/zimodesolutions:tilli-machine-learning-3 .
-docker image ls
-docker push mynapsys/zimodesolutions:tilli-machine-learning-3
