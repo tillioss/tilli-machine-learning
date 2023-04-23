@@ -30,7 +30,7 @@ def visualize(df):
 
 
 def data_etl():
-    df = pd.read_json('../data/data_1.json').reset_index()
+    df = pd.read_json('data/data_1.json').reset_index()
     journey_df = pd.DataFrame(list(df['users']))[['journeys']].dropna()
     training_df = pd.DataFrame()
 
@@ -39,8 +39,10 @@ def data_etl():
             training_df = pd.DataFrame(list(journey_df.iloc[1])[0].values())
         else:
             training_df = training_df.append(pd.DataFrame(list(journey_df.iloc[i])[0].values()))
+    training_df = training_df[training_df['activity'] != 'FeedTheFrogActivity']
+    training_df = training_df[training_df['emotion'] != ""]
     return training_df
 
-# training_df = data_etl()
-# visualize(training_df)
+training_df = data_etl()
+visualize(training_df)
 # training_df = categorical_to_numeric_df(training_df)

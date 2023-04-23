@@ -6,9 +6,8 @@ import numpy as np
 import joblib
 
 # Load the data
-processed_df = data_etl()
-data = processed_df[processed_df['emotion'] !=""]
-# data = categorical_to_numeric_df(processed_df)
+data = data_etl()
+
 
 #TODO Need to add a more generalised missing value handling mechanism
 
