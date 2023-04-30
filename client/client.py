@@ -2,7 +2,8 @@ import requests
 
 # Define the endpoint URL
 # url = 'http://127.0.0.1:5000/predict'
-url = 'https://tilli.teqbahn.com/predict'
+# url = 'https://tilli.teqbahn.com/predict'
+url = 'http://127.0.0.1:8080/predict'
 
 # Define the emotion and feedback values
 emotion = 'sad'

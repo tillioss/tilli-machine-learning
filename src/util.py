@@ -1,6 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+import json
 
+# Get the current directory of the Python file
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 def categorical_to_numeric_df(training_df):
     """
@@ -30,7 +34,10 @@ def visualize(df):
 
 
 def data_etl():
-    df = pd.read_json('data/data_1.json').reset_index()
+    # Define the path to the JSON file relative to the current directory
+    json_path = os.path.join(base_dir, '..', 'data', 'data_1.json')
+
+    df = pd.read_json(json_path).reset_index()
     journey_df = pd.DataFrame(list(df['users']))[['journeys']].dropna()
     training_df = pd.DataFrame()
 
@@ -44,5 +51,5 @@ def data_etl():
     return training_df
 
 training_df = data_etl()
-visualize(training_df)
+# visualize(training_df)
 # training_df = categorical_to_numeric_df(training_df)
