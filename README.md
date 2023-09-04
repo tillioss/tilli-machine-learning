@@ -1,3 +1,5 @@
+[![CI/CD Test](https://github.com/tillioss/tilli-machine-learning/actions/workflows/test.yml/badge.svg)](https://github.com/tillioss/tilli-machine-learning/actions/workflows/test.yml)
+
 # Machine Learning Model Server
 
 This repository contains code for running a machine learning model server using Docker and Python. The server serves predictions based on a trained logistic regression model. It also includes tests, a client server for manual testing, and additional files needed at runtime.
